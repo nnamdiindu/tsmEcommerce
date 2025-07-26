@@ -23,6 +23,9 @@ module.exports = {
         footerBg: "#3B1F0B", // Deep dark brownish-gold for footer background
         footerText: "#F9D5D3", // Light blush for footer text
       },
+      fontFamily: {
+        work: ['"Work Sans"', "sans-serif"],
+      },
     },
   },
   plugins: [],

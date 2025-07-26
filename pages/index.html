@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Shop clean, effective, and beautiful skincare products at TSM Global Cosmetic Shop. Perfect for kids and adults."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TSM Global Cosmetic Shop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Toastify CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
+    <!-- Toastify JS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+
+  <body class="font-Work">
+    <nav
+      id="beforeLogin"
+      class="bg-[#580F41] text-[#C8A2C8] sticky top-0 z-50 shadow-md"
+    >
+      <div
+        class="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a href="/" class="flex items-center">
+          <img src="/image/purpleLogo.png" alt="TsmLogo" class="w-24 h-auto" />
+        </a>
+        <button class="lg:hidden text-[#C8A2C8]" onclick="toggleNavMenu()">
+          <i class="bi bi-list text-3xl"></i>
+        </button>
+        <div class="hidden lg:flex items-center space-x-6">
+          <a href="/pages/index.html" class="hover:text-purple-300">Home</a>
+          <a href="/pages/shop.html" class="hover:text-purple-300">Shop</a>
+          <a href="#about" class="hover:text-purple-300">About</a>
+          <a href="#contact" class="hover:text-purple-300">Contact</a>
+          <a href="/pages/auth.html" class="hover:text-purple-300">Login</a>
+          <a href="/pages/auth.html" class="hover:text-purple-300">Register</a>
+          <a href="/pages/checkout.html" class="hover:text-purple-300"
+            >Cart (<span id="cartCount">0</span>)</a
+          >
+        </div>
+      </div>
+      <div
+        id="navmenu"
+        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-[#C8A2C8] text-[#580F41] lg:hidden"
+      >
+        <div class="flex flex-col px-4 py-6 space-y-4">
+          <a href="/" class="hover:text-pink-900">Home</a>
+          <a href="/pages/shop.html" class="hover:text-pink-900">Shop</a>
+          <a href="#about" class="hover:text-pink-900">About</a>
+          <a href="#contact" class="hover:text-pink-900">Contact</a>
+          <a href="/pages/login.html" class="hover:text-pink-900">Login</a>
+          <a href="/pages/register.html" class="hover:text-pink-900"
+            >Register</a
+          >
+          <a href="/pages/checkout.html" class="hover:text-pink-900"
+            >Cart (<span id="cartCount">0</span>)</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- ✅ AFTER LOGIN NAVBAR -->
+    <nav
+      id="afterLogin"
+      class="bg-[#580F41] text-[#C8A2C8] sticky top-0 z-50 shadow-md hidden"
+    >
+      <div
+        class="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a href="/" class="flex items-center">
+          <img src="/image/purpleLogo.png" alt="TsmLogo" class="w-24 h-auto" />
+        </a>
+        <button class="lg:hidden text-[#C8A2C8]" onclick="toggleNavMenu()">
+          <i class="bi bi-list text-3xl"></i>
+        </button>
+        <div class="hidden lg:flex items-center space-x-6">
+          <a href="/" class="hover:text-purple-300">Home</a>
+          <a href="/pages/shop.html" class="hover:text-purple-300">Shop</a>
+          <a href="#about" class="hover:text-purple-300">About</a>
+          <a href="#contact" class="hover:text-purple-300">Contact</a>
+          <a href="/pages/dashboard.html" class="hover:text-purple-300"
+            >Dashboard</a
+          >
+          <a href="/pages/profile.html" class="hover:text-purple-300"
+            >Profile</a
+          >
+          <a href="/pages/checkout.html" class="hover:text-purple-300"
+            >Cart (<span id="cartCount">0</span>)</a
+          >
+          <button onclick="logoutUser()" class="hover:text-purple-300">
+            Logout
+          </button>
+        </div>
+      </div>
+      <div
+        id="navmenu"
+        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-[#C8A2C8] text-[#580F41] lg:hidden"
+      >
+        <div class="flex flex-col px-4 py-6 space-y-4">
+          <a href="/" class="hover:text-pink-900">Home</a>
+          <a href="/pages/shop.html" class="hover:text-pink-900">Shop</a>
+          <a href="#about" class="hover:text-pink-900">About</a>
+          <a href="#contact" class="hover:text-pink-900">Contact</a>
+          <a href="/pages/dashboard.html" class="hover:text-pink-900"
+            >Dashboard</a
+          >
+          <a href="/pages/profile.html" class="hover:text-pink-900">Profile</a>
+          <a href="/pages/checkout.html" class="hover:text-pink-900"
+            >Cart (<span id="cartCount">0</span>)</a
+          >
+          <button onclick="logoutUser()" class="text-left hover:text-pink-900">
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero section -->
+    <section class="bg-[#C8A2C8] py-32 px-8">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12">
+        <div
+          class="relative flex justify-center items-center"
+          data-aos="zoom-out"
+        >
+          <div class="absolute w-60 h-60 bg-[#580F41] rounded-full"></div>
+          <img
+            id="productImage"
+            src="/image/product22-removebg-preview.png"
+            alt="Product"
+            class="relative w-72 z-10 transition-all duration-700 ease-in-out"
+          />
+        </div>
+
+        <!-- Product Info -->
+        <div class="space-y-4" data-aos="zoom-in">
+          <p class="text-sm text-[#580F41] font-medium">Normal to oily skin</p>
+          <h1 class="text-4xl font-semibold text-[#580F41]">TSM Global</h1>
+          <p class="text-white">
+            Whether you're here to glow up your skincare routine, find the
+            perfect lipstick, or explore clean beauty solutions, you're in the
+            right place.
+          </p>
+
+          <div class="flex gap-4">
+            <button
+              class="bg-[#580F41] text-white px-6 py-2 rounded shadow hover:bg-pink-900"
+            >
+              <a href="/pages/shop.html"> Go to Shop </a>
+            </button>
+            <button class="text-[#580F41] underline">
+              <a href="#howitworks">How it works</a>
+            </button>
+          </div>
+
+          <div class="flex gap-6 mt-4">
+            <div class="flex items-center gap-1 text-sm text-[#580F41]">
+              ⭐ 4.6 <br />
+              <span class="text-xs text-white">Rating</span>
+            </div>
+            <div class="text-sm text-[#580F41]">
+              📦 200+<br /><span class="text-xs text-white">Product sold</span>
+            </div>
+            <div class="text-sm text-[#580F41]">
+              💬 99+<br /><span class="text-xs text-white">Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="bg-[#580F41] py-10 pt-24 text-[#C8A2C8]">
+      <div class="container mx-auto px-4" x-data="shopComponent">
+        <h2 class="text-3xl font-bold text-center mb-6" data-aos="slide-up">
+          Products Section
+        </h2>
+
+        <!-- Toggle Buttons -->
+        <div class="flex justify-center gap-6 mb-8" data-aos="zoom-out">
+          <button
+            @click="toggleCategory('kids')"
+            class="bg-[#C8A2C8] text-[#580F41] px-6 py-2 rounded hover:bg-pink-300 transition"
+          >
+            Kids
+          </button>
+          <button
+            @click="toggleCategory('adults')"
+            class="bg-[#C8A2C8] text-[#580F41] px-6 py-2 rounded hover:bg-pink-300 transition"
+          >
+            Adults
+          </button>
+        </div>
+
+        <!-- Kids Product Grid -->
+        <div
+          x-show="showCategory === 'kids'"
+          x-transition
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <template x-for="product in kidsProducts" :key="product.id">
+            <div
+              class="bg-[#C8A2C8] text-[#580F41] rounded-lg shadow-md p-4 text-center"
+            >
+              <img
+                :src="product.image"
+                :alt="product.name"
+                class="w-full h-48 object-cover rounded"
+              />
+              <h3 class="text-xl font-semibold mt-4" x-text="product.name"></h3>
+              <p class="mt-2" x-text="product.description"></p>
+              <p class="font-bold mt-2">
+                $
+                <span
+                  x-text="product.unit === 'carton' ? product.cartonPrice : product.price"
+                ></span>
+              </p>
+              <div class="mt-2">
+                <label class="mr-2">
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="piece"
+                    @change="changeUnit(product, 'piece')"
+                    :checked="product.unit === 'piece'"
+                  />
+                  Piece
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="carton"
+                    @change="changeUnit(product, 'carton')"
+                    :checked="product.unit === 'carton'"
+                  />
+                  Carton
+                </label>
+              </div>
+              <!-- Quantity Selector -->
+              <div class="flex items-center justify-center mt-2 space-x-2">
+                <button
+                  @click="decrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  −
+                </button>
+                <input
+                  type="text"
+                  x-model="product.quantity"
+                  class="w-12 text-center rounded text-[#580F41] bg-white border border-[#580F41]"
+                  readonly
+                />
+                <button
+                  @click="incrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                @click="addToCart(product)"
+                class="mt-4 bg-[#580F41] text-white px-4 py-2 rounded"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </template>
+        </div>
+
+        <!-- Adults Product Grid -->
+        <div
+          x-show="showCategory === 'adults'"
+          x-transition
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <template x-for="product in adultsProducts" :key="product.id">
+            <div
+              class="bg-[#C8A2C8] text-[#580F41] rounded-lg shadow-md p-4 text-center"
+            >
+              <img
+                :src="product.image"
+                :alt="product.name"
+                class="w-full h-48 object-cover rounded"
+              />
+              <h3 class="text-xl font-semibold mt-4" x-text="product.name"></h3>
+              <p class="mt-2" x-text="product.description"></p>
+              <p class="font-bold mt-2">
+                $
+                <span
+                  x-text="product.unit === 'carton' ? product.cartonPrice : product.price"
+                ></span>
+              </p>
+              <div class="mt-2">
+                <label class="mr-2">
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="piece"
+                    @change="changeUnit(product, 'piece')"
+                    :checked="product.unit === 'piece'"
+                  />
+                  Piece
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="carton"
+                    @change="changeUnit(product, 'carton')"
+                    :checked="product.unit === 'carton'"
+                  />
+                  Carton
+                </label>
+              </div>
+              <!-- Quantity Selector -->
+              <div class="flex items-center justify-center mt-2 space-x-2">
+                <button
+                  @click="decrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  −
+                </button>
+                <input
+                  type="text"
+                  x-model="product.quantity"
+                  class="w-12 text-center rounded text-[#580F41] bg-white border border-[#580F41]"
+                  readonly
+                />
+                <button
+                  @click="incrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                @click="addToCart(product)"
+                class="mt-4 bg-[#580F41] text-white px-4 py-2 rounded"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+    <!-- CARE -->
+    <section class="py-16 bg-[#C8A2C8] text-center">
+      <h2 class="text-3xl font-bold text-[#580F41] mb-12" data-aos="zoom-in">
+        JUST LIKE YOU WE CARE ABOUT
+      </h2>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-6xl mx-auto px-4"
+      >
+        <!-- Card 1 -->
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+        >
+          <i class="fas fa-paw text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase">
+            Cruelty Free Products
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+        >
+          <i class="fas fa-flask text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase">
+            No Harsh Chemicals
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+        >
+          <i class="fas fa-leaf text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase text-center">
+            Quality Natural Ingredients
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <i class="fas fa-recycle text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase">Sustainability</p>
+        </div>
+      </div>
+    </section>
+    <!-- CARE -->
+    <section class="py-16 bg-[#C8A2C8] text-center">
+      <h2 class="text-3xl font-bold text-[#580F41] mb-12" data-aos="zoom-in">
+        JUST LIKE YOU WE CARE ABOUT
+      </h2>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-6xl mx-auto px-4"
+      >
+        <!-- Card 1 -->
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+        >
+          <i class="fas fa-paw text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase">
+            Cruelty Free Products
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+        >
+          <i class="fas fa-flask text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase">
+            No Harsh Chemicals
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+        >
+          <i class="fas fa-leaf text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase text-center">
+            Quality Natural Ingredients
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div
+          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <i class="fas fa-recycle text-[#580F41] text-4xl"></i>
+          <p class="font-semibold text-[#580F41] uppercase">Sustainability</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-[#580F41] py-10 text-[#C8A2C8] pt-24">
+      <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+        <p class="mb-4">Have any questions or concerns? Reach out to us!</p>
+        <form class="max-w-xl mx-auto space-y-4">
+          <input
+            type="text"
+            placeholder="Name"
+            class="w-full px-4 py-2 rounded text-[#580F41] bg-[#C8A2C8] placeholder-[#580F41]"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            class="w-full px-4 py-2 rounded text-[#580F41] bg-[#C8A2C8] placeholder-[#580F41]"
+            required
+          />
+          <textarea
+            placeholder="Message"
+            rows="4"
+            class="placeholder-[#580F41] w-full px-4 py-2 rounded text-[#580F41] bg-[#C8A2C8]"
+            required
+          ></textarea>
+          <button
+            type="submit"
+            class="bg-[#C8A2C8] hover:bg-pink-300 text-[#580F41] px-6 py-2 rounded"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+    <!-- Features -->
+    <section class="text-center py-12 bg-[#C8A2C8]">
+      <h2
+        class="text-3xl font-bold tracking-widest mb-10 text-[#580F41]"
+        data-aos="slide-up"
+      >
+        AS FEATURED IN
+      </h2>
+
+      <div
+        class="flex flex-wrap justify-center gap-6 px-4 max-w-6xl mx-auto"
+        data-aos="zoom-in"
+      >
+        <!-- Shopify -->
+        <div
+          class="bg-[#580F41] p-6 w-48 h-28 flex items-center justify-center rounded-md shadow-sm animate-fade-in"
+        >
+          <i class="fab fa-shopify text-5xl text-[#C8A2C8]"></i>
+        </div>
+
+        <!-- Magazine (Vancouver) -->
+        <div
+          class="bg-[#580F41] p-6 w-48 h-28 flex items-center justify-center rounded-md shadow-sm animate-fade-in delay-100"
+        >
+          <i class="fas fa-newspaper text-5xl text-[#C8A2C8]"></i>
+        </div>
+
+        <!-- Elle (Use fashion icon) -->
+        <div
+          class="bg-[#580F41] p-6 w-48 h-28 flex items-center justify-center rounded-md shadow-sm animate-fade-in delay-200"
+        >
+          <i class="fas fa-user-tie text-5xl text-[#C8A2C8]"></i>
+        </div>
+
+        <!-- BCBusiness (Use briefcase icon) -->
+        <div
+          class="bg-[#580F41] p-6 w-48 h-28 flex items-center justify-center rounded-md shadow-sm animate-fade-in delay-300"
+        >
+          <i class="fas fa-briefcase text-5xl text-[#C8A2C8]"></i>
+        </div>
+      </div>
+    </section>
+    <!-- How it works -->
+    <section class="text-center py-12 bg-[#580F41] pt-24" id="howitworks">
+      <h2
+        class="text-4xl font-bold text-[#C8A2C8] tracking-widest mb-12"
+        data-aos="fade-up"
+      >
+        HOW IT WORKS
+      </h2>
+
+      <div
+        class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto px-4"
+        data-aos="zoom-out"
+      >
+        <!-- Step 1 -->
+        <div
+          class="bg-[#C8A2C8] p-8 rounded-lg shadow-md w-full md:w-1/3 transform transition hover:scale-105 bounce-scale"
+        >
+          <div class="text-[#580F41] text-4xl mb-4">
+            <i class="fas fa-laptop-house"></i>
+          </div>
+          <h3 class="text-[#580F41] text-2xl font-bold mb-2">01</h3>
+          <p class="text-[#580F41]">
+            Order online from the comfort of your home
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div
+          class="bg-[#C8A2C8] p-8 rounded-lg shadow-md w-full md:w-1/3 transform transition hover:scale-105 fade-in delay-100"
+        >
+          <div class="text-[#580F41] text-4xl mb-4">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h3 class="text-[#580F41] text-2xl font-bold mb-2">02</h3>
+          <p class="text-[#580F41]">
+            Get your products delivered directly to your door
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div
+          class="bg-[#C8A2C8] p-8 rounded-lg shadow-md w-full md:w-1/3 transform transition hover:scale-105 fade-in delay-200"
+        >
+          <div class="text-[#580F41] text-4xl mb-4">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3 class="text-[#580F41] text-2xl font-bold mb-2">03</h3>
+          <p class="text-[#580F41]">Use your products and love them</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-[#C8A2C8] text-gray-300 text-sm">
+      <div
+        class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8"
+        data-aos="zoom-in"
+      >
+        <!-- Logo & Contact -->
+        <div>
+          <h2 class="text-lg font-bold text-[#580F41] mb-4">TSM COSMETICS</h2>
+          <p class="text-[#580F41]">
+            Borno Plaza CAT 23 & 24, Lagos<br />Nigeria
+          </p>
+          <a
+            href="#contact"
+            class="inline-block mt-6 bg-[#580F41] text-white py-2 px-5 rounded hover:bg-pink-900 transition"
+          >
+            contact us
+          </a>
+        </div>
+
+        <!-- Free Yourself -->
+        <div class="text-[#580F41]">
+          <h3 class="font-semibold mb-4">Free Yourself</h3>
+          <ul class="space-y-2">
+            <li><a href="#shop" class="hover:underline">Skin lotion</a></li>
+            <li><a href="#shop" class="hover:underline">Body scrub</a></li>
+            <li><a href="#shop" class="hover:underline">Baby lotion</a></li>
+            <li><a href="#shop" class="hover:underline">Face Cream</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="text-[#580F41]">
+          <h3 class="font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="#about" class="hover:underline">About Us</a></li>
+            <li><a href="#shop" class="hover:underline">Our Products</a></li>
+            <!-- <li><a href="#" class="hover:underline">FAQs</a></li> -->
+            <li>
+              <a
+                href="https://www.google.com/maps/place/Trade+Fair+Market+Borno+Plaza+Lagos+Nigeria"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:underline"
+              >
+                Sitemap
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social -->
+        <div class="text-[#580F41]">
+          <h3 class="font-semibold mb-4">Follow Us</h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="https://www.facebook.com/share/162qoSt6Wp/?mibextid=kFxxJD"
+                class="hover:underline"
+                ><i class="fab fa-facebook mr-2"></i>Facebook</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:underline"
+                ><i class="fab fa-twitter mr-2"></i>Twitter</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:underline"
+                ><i class="fab fa-instagram mr-2"></i>Instagram</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom strip -->
+      <div
+        class="border-t border-[#580F41] py-4 px-6 flex flex-col md:flex-row justify-between items-center text-xs"
+      >
+        <p>© 2025 TSM Cosmetics. All Rights Reserved.</p>
+        <div class="flex items-center gap-2 mt-2 md:mt-0">
+          <span>Accepted Payments:</span>
+          <i class="fab fa-cc-mastercard text-xl"></i>
+          <i class="fab fa-cc-visa text-xl"></i>
+          <i class="fab fa-cc-paypal text-xl"></i>
+        </div>
+      </div>
+    </footer>
+    <!-- Toastify Library -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop – TSM Cosmetics</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <!-- Favicon -->
+    <link rel="icon" href="/image/favicon.ico" type="image/x-icon" />
+  </head>
+
+  <body class="bg-white text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-[#580F41] sticky top-0 z-50 text-[#C8A2C8] shadow-md">
+      <div
+        class="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a href="/" class="flex items-center">
+          <img src="/image/purpleLogo.png" alt="TSM Logo" class="w-24 h-auto" />
+        </a>
+        <button
+          id="menuToggle"
+          class="text-[#C8A2C8] lg:hidden"
+          onclick="toggleNavMenu()"
+        >
+          <i class="bi bi-list text-3xl"></i>
+        </button>
+        <div class="hidden lg:flex space-x-6 items-center">
+          <a href="/pages/index.html" class="hover:text-purple-300">Home</a>
+          <a href="/pages/shop.html" class="hover:text-purple-300">Shop</a>
+          <a
+            href="/pages/auth.html"
+            id="loginLink"
+            class="hover:text-purple-300"
+            >Login</a
+          >
+          <a
+            href="/pages/auth.html"
+            id="registerLink"
+            class="hover:text-purple-300"
+            >Register</a
+          >
+          <a href="/pages/cart.html" class="hover:text-purple-300">
+            Cart (<span id="cartCount">0</span>)
+          </a>
+        </div>
+      </div>
+      <div
+        id="navmenu"
+        class="absolute top-full left-0 right-0 bg-[#C8A2C8] text-[#580F41] overflow-hidden max-h-0 transition-all duration-300 lg:hidden"
+      >
+        <div class="flex flex-col space-y-4 px-4 py-6">
+          <a href="/pages/index.html" class="hover:text-pink-900">Home</a>
+          <a href="/pages/shop.html" class="hover:text-pink-900">Shop</a>
+          <a href="/pages/auth.html" class="hover:text-pink-900">Login</a>
+          <a href="/pages/auth.html" class="hover:text-pink-900">Register</a>
+          <a href="/pages/cart.html" class="hover:text-pink-900">
+            Cart (<span id="cartCount">0</span>)
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Product Section -->
+    <section id="shop" class="bg-[#580F41] py-10 pt-24 text-[#C8A2C8]">
+      <div class="container mx-auto px-4" x-data="shopComponent">
+        <h2 class="text-3xl font-bold text-center mb-6" data-aos="slide-up">
+          Products Section
+        </h2>
+
+        <!-- Toggle Buttons -->
+        <div class="flex justify-center gap-6 mb-8" data-aos="zoom-out">
+          <button
+            @click="toggleCategory('kids')"
+            class="bg-[#C8A2C8] text-[#580F41] px-6 py-2 rounded hover:bg-pink-300 transition"
+          >
+            Kids
+          </button>
+          <button
+            @click="toggleCategory('adults')"
+            class="bg-[#C8A2C8] text-[#580F41] px-6 py-2 rounded hover:bg-pink-300 transition"
+          >
+            Adults
+          </button>
+        </div>
+
+        <!-- Kids Product Grid -->
+        <div
+          x-show="showCategory === 'kids'"
+          x-transition
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <template x-for="product in kidsProducts" :key="product.id">
+            <div
+              class="bg-[#C8A2C8] text-[#580F41] rounded-lg shadow-md p-4 text-center"
+            >
+              <img
+                :src="product.image"
+                :alt="product.name"
+                class="w-full h-48 object-cover rounded"
+              />
+              <h3 class="text-xl font-semibold mt-4" x-text="product.name"></h3>
+              <p class="mt-2" x-text="product.description"></p>
+              <p class="font-bold mt-2">
+                $
+                <span
+                  x-text="product.unit === 'carton' ? product.cartonPrice : product.price"
+                ></span>
+              </p>
+              <div class="mt-2">
+                <label class="mr-2">
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="piece"
+                    @change="changeUnit(product, 'piece')"
+                    :checked="product.unit === 'piece'"
+                  />
+                  Piece
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="carton"
+                    @change="changeUnit(product, 'carton')"
+                    :checked="product.unit === 'carton'"
+                  />
+                  Carton
+                </label>
+              </div>
+              <!-- Quantity Selector -->
+              <div class="flex items-center justify-center mt-2 space-x-2">
+                <button
+                  @click="decrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  −
+                </button>
+                <input
+                  type="text"
+                  x-model="product.quantity"
+                  class="w-12 text-center rounded text-[#580F41] bg-white border border-[#580F41]"
+                  readonly
+                />
+                <button
+                  @click="incrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                @click="addToCart(product)"
+                class="mt-4 bg-[#580F41] text-white px-4 py-2 rounded"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </template>
+        </div>
+
+        <!-- Adults Product Grid -->
+        <div
+          x-show="showCategory === 'adults'"
+          x-transition
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <template x-for="product in adultsProducts" :key="product.id">
+            <div
+              class="bg-[#C8A2C8] text-[#580F41] rounded-lg shadow-md p-4 text-center"
+            >
+              <img
+                :src="product.image"
+                :alt="product.name"
+                class="w-full h-48 object-cover rounded"
+              />
+              <h3 class="text-xl font-semibold mt-4" x-text="product.name"></h3>
+              <p class="mt-2" x-text="product.description"></p>
+              <p class="font-bold mt-2">
+                $
+                <span
+                  x-text="product.unit === 'carton' ? product.cartonPrice : product.price"
+                ></span>
+              </p>
+              <div class="mt-2">
+                <label class="mr-2">
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="piece"
+                    @change="changeUnit(product, 'piece')"
+                    :checked="product.unit === 'piece'"
+                  />
+                  Piece
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    :name="'unit_' + product.id"
+                    value="carton"
+                    @change="changeUnit(product, 'carton')"
+                    :checked="product.unit === 'carton'"
+                  />
+                  Carton
+                </label>
+              </div>
+              <!-- Quantity Selector -->
+              <div class="flex items-center justify-center mt-2 space-x-2">
+                <button
+                  @click="decrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  −
+                </button>
+                <input
+                  type="text"
+                  x-model="product.quantity"
+                  class="w-12 text-center rounded text-[#580F41] bg-white border border-[#580F41]"
+                  readonly
+                />
+                <button
+                  @click="incrementQty(product)"
+                  class="bg-[#580F41] text-white w-8 h-8 rounded hover:bg-pink-900"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                @click="addToCart(product)"
+                class="mt-4 bg-[#580F41] text-white px-4 py-2 rounded"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+    <footer class="bg-[#C8A2C8] text-gray-300 text-sm">
+      <div
+        class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8"
+        data-aos="zoom-in"
+      >
+        <!-- Logo & Contact -->
+        <div>
+          <h2 class="text-lg font-bold text-[#580F41] mb-4">TSM COSMETICS</h2>
+          <p class="text-[#580F41]">
+            Borno Plaza CAT 23 & 24, Lagos<br />Nigeria
+          </p>
+          <a
+            href="#contact"
+            class="inline-block mt-6 bg-[#580F41] text-white py-2 px-5 rounded hover:bg-pink-900 transition"
+          >
+            contact us
+          </a>
+        </div>
+
+        <!-- Free Yourself -->
+        <div class="text-[#580F41]">
+          <h3 class="font-semibold mb-4">Free Yourself</h3>
+          <ul class="space-y-2">
+            <li><a href="#shop" class="hover:underline">Skin lotion</a></li>
+            <li><a href="#shop" class="hover:underline">Body scrub</a></li>
+            <li><a href="#shop" class="hover:underline">Baby lotion</a></li>
+            <li><a href="#shop" class="hover:underline">Face Cream</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="text-[#580F41]">
+          <h3 class="font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="#about" class="hover:underline">About Us</a></li>
+            <li><a href="#shop" class="hover:underline">Our Products</a></li>
+            <!-- <li><a href="#" class="hover:underline">FAQs</a></li> -->
+            <li>
+              <a
+                href="https://www.google.com/maps/place/Trade+Fair+Market+Borno+Plaza+Lagos+Nigeria"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:underline"
+              >
+                Sitemap
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social -->
+        <div class="text-[#580F41]">
+          <h3 class="font-semibold mb-4">Follow Us</h3>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="https://www.facebook.com/share/162qoSt6Wp/?mibextid=kFxxJD"
+                class="hover:underline"
+                ><i class="fab fa-facebook mr-2"></i>Facebook</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:underline"
+                ><i class="fab fa-twitter mr-2"></i>Twitter</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:underline"
+                ><i class="fab fa-instagram mr-2"></i>Instagram</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom strip -->
+      <div
+        class="border-t border-[#580F41] py-4 px-6 flex flex-col md:flex-row justify-between items-center text-xs"
+      >
+        <p>© 2025 TSM Cosmetics. All Rights Reserved.</p>
+        <div class="flex items-center gap-2 mt-2 md:mt-0">
+          <span>Accepted Payments:</span>
+          <i class="fab fa-cc-mastercard text-xl"></i>
+          <i class="fab fa-cc-visa text-xl"></i>
+          <i class="fab fa-cc-paypal text-xl"></i>
+        </div>
+      </div>
+    </footer>
+
+ 
+    <!-- Toastify Library -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <script src="/js/shop.js"></script>
+    <script src="/js/shop.js"></script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart – TSM Cosmetics</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/favicon.ico" type="image/x-icon" />
+
+    <!-- AOS CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Back Button -->
+    <div class="p-4" data-aos="fade-down">
+      <a
+        href="/pages/shop.html"
+        class="inline-flex items-center text-[#580F41] hover:text-[#C8A2C8] font-medium"
+      >
+        ← Back to Shop
+      </a>
+    </div>
+
+    <!-- Cart Section -->
+    <section
+      class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6"
+      data-aos="fade-up"
+    >
+      <!-- Cart Items -->
+      <div class="lg:col-span-2">
+        <h2 class="text-2xl font-bold mb-4" data-aos="fade-right">
+          Shopping Cart
+        </h2>
+        <div id="cart-items" class="space-y-4"></div>
+      </div>
+
+      <!-- Order Summary -->
+      <div
+        class="bg-[#580F41] text-white shadow p-4 rounded"
+        data-aos="zoom-in-left"
+        data-aos-delay="100"
+      >
+        <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
+        <div class="flex justify-between mb-2">
+          <span>Subtotal</span>
+          <span>₦<span id="subtotal">0</span></span>
+        </div>
+        <div class="flex justify-between mb-2">
+          <span>Delivery Fee</span>
+          <span>₦<span id="delivery">1500</span></span>
+        </div>
+        <hr class="my-2" />
+        <div class="flex justify-between font-bold text-lg">
+          <span>Total</span>
+          <span>₦<span id="total">0</span></span>
+        </div>
+        <button
+          id="checkout-btn"
+          class="w-full mt-4 bg-[#C8A2C8] text-white px-4 py-2 rounded hover:bg-[#C8A2B8]"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+    </section>
+
+    <!-- Toast -->
+    <div
+      id="toast"
+      class="fixed bottom-4 right-4 bg-black text-white px-4 py-2 rounded shadow hidden z-50"
+    ></div>
+
+    <!-- Scripts -->
+ <script>
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const deliveryFee = 1500;
+
+  function renderCart() {
+    const container = document.getElementById("cart-items");
+    container.innerHTML = "";
+
+    let subtotal = 0;
+
+    cartItems.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
+
+      container.innerHTML += `
+        <div class="bg-[#C8A2C8] shadow p-4 rounded flex gap-4 items-center">
+          <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded object-cover" />
+          <div class="flex-1">
+            <h3 class="font-semibold text-lg text-[#580F41]">${item.name}</h3>
+            <p class="font-bold">₦${item.price}</p>
+            <p class="text-sm text-white">${item.unit}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="updateQuantity(${index}, -1)" class="bg-[#580F41] text-white px-2 py-1 rounded">−</button>
+            <span>${item.quantity}</span>
+            <button onclick="updateQuantity(${index}, 1)" class="bg-[#580F41] text-white px-2 py-1 rounded">+</button>
+          </div>
+          <div class="text-right">
+            <p class="text-sm text-white">Subtotal</p>
+            <p class="font-semibold">₦${itemTotal}</p>
+          </div>
+        </div>
+      `;
+    });
+
+    document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+    document.getElementById("total").textContent = (subtotal + deliveryFee).toFixed(2);
+  }
+
+  function updateQuantity(index, delta) {
+    cartItems[index].quantity += delta;
+    if (cartItems[index].quantity <= 0) {
+      cartItems.splice(index, 1);
+    }
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    renderCart();
+  }
+
+  renderCart();
+</script>
+
+
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
