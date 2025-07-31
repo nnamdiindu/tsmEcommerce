@@ -11,7 +11,7 @@
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> -->
   </head>
 
   <body class="bg-gray-50 text-gray-800">
@@ -41,7 +41,7 @@
               {% endfor %}
             {% endif %}
         {% endwith %}
-        <form id="login-form" class="space-y-4">
+        <form method="post" action="/login" id="login-form" class="space-y-4">
           <input
             type="email"
             placeholder="Email"
@@ -76,48 +76,5 @@
       </div>
     </section>
 
-    <script>
-      function showToast(message, type = "info") {
-        const colors = {
-          info: "#580F41",
-          success: "#4BB543",
-          error: "#E53E3E",
-        };
-
-        Toastify({
-          text: message,
-          duration: 3000,
-          gravity: "top",
-          position: "right",
-          backgroundColor: colors[type],
-          stopOnFocus: true,
-        }).showToast();
-      }
-
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const email = e.target.email.value.trim();
-          const password = e.target.password.value.trim();
-
-          const storedUser = JSON.parse(localStorage.getItem("user"));
-
-          if (!storedUser) {
-            showToast("No account found. Please register first.", "error");
-            return;
-          }
-
-          if (storedUser.email === email && storedUser.password === password) {
-            localStorage.setItem("isLoggedIn", "true");
-            showToast("Login successful!", "success");
-            setTimeout(() => {
-              window.location.href = "{{ url_for('index') }}";
-            }, 1500);
-          } else {
-            showToast("Invalid email or password.", "error");
-          }
-        });
-    </script>
   </body>
 </html>

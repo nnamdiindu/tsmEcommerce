@@ -145,9 +145,25 @@ def register():
 
     return render_template("register.html", current_user=current_user)
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        user = db.session.execute(db.select(User).where(User.email == email)).scalar()
+
+        if user:
+            if check_password_hash(user.password, password):
+                login_user(user)
+                return redirect(url_for("index"))
+            else:
+                flash("Incorrect password, please try again.")
+                return redirect(url_for("login"))
+        else:
+            flash("Email doesn't exist, please sign up.")
+            return redirect(url_for("register"))
+
+    return render_template("login.html", current_user=current_user)
 
 @app.route("/checkout")
 def checkout():
