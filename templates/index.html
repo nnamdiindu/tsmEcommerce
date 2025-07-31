@@ -53,21 +53,20 @@
         class="container mx-auto px-4 py-4 flex items-center justify-between"
       >
         <a href="/" class="flex items-center">
-          <img src="/image/purpleLogo.png" alt="TsmLogo" class="w-24 h-auto" />
+          <img src="/static/image/purpleLogo.png" alt="TsmLogo" class="w-24 h-auto" />
         </a>
         <button class="lg:hidden text-[#C8A2C8]" onclick="toggleNavMenu()">
           <i class="bi bi-list text-3xl"></i>
         </button>
         <div class="hidden lg:flex items-center space-x-6">
-          <a href="/pages/index.html" class="hover:text-purple-300">Home</a>
-          <a href="/pages/shop.html" class="hover:text-purple-300">Shop</a>
+          <a href="{{ url_for('index') }}" class="hover:text-purple-300">Home</a>
+          <a href="{{ url_for('shop') }}" class="hover:text-purple-300">Shop</a>
           <a href="#about" class="hover:text-purple-300">About</a>
           <a href="#contact" class="hover:text-purple-300">Contact</a>
-          <a href="/pages/auth.html" class="hover:text-purple-300">Login</a>
-          <a href="/pages/auth.html" class="hover:text-purple-300">Register</a>
-          <a href="/pages/checkout.html" class="hover:text-purple-300"
-            >Cart (<span id="cartCount">0</span>)</a
-          >
+          <a href="{{ url_for('login') }}" class="hover:text-purple-300">Login</a>
+          <a href="{{ url_for('register') }}" class="hover:text-purple-300">Register</a>
+          <a href="{{ url_for('checkout') }}" class="hover:text-purple-300"
+            >Cart (<span id="cartCount">0</span>)</a>
         </div>
       </div>
       <div
@@ -76,14 +75,13 @@
       >
         <div class="flex flex-col px-4 py-6 space-y-4">
           <a href="/" class="hover:text-pink-900">Home</a>
-          <a href="/pages/shop.html" class="hover:text-pink-900">Shop</a>
+          <a href="{{ url_for('shop') }}" class="hover:text-pink-900">Shop</a>
           <a href="#about" class="hover:text-pink-900">About</a>
           <a href="#contact" class="hover:text-pink-900">Contact</a>
-          <a href="/pages/login.html" class="hover:text-pink-900">Login</a>
-          <a href="/pages/register.html" class="hover:text-pink-900"
-            >Register</a
-          >
-          <a href="/pages/checkout.html" class="hover:text-pink-900"
+          <a href="{{ url_for('login') }}" class="hover:text-pink-900">Login</a>
+          <a href="{{ url_for('register') }}" class="hover:text-pink-900"
+            >Register</a>
+          <a href="{{ url_for('checkout') }}" class="hover:text-pink-900"
             >Cart (<span id="cartCount">0</span>)</a
           >
         </div>
@@ -99,23 +97,23 @@
         class="container mx-auto px-4 py-4 flex items-center justify-between"
       >
         <a href="/" class="flex items-center">
-          <img src="/image/purpleLogo.png" alt="TsmLogo" class="w-24 h-auto" />
+          <img src="/static/image/purpleLogo.png" alt="TsmLogo" class="w-24 h-auto" />
         </a>
         <button class="lg:hidden text-[#C8A2C8]" onclick="toggleNavMenu()">
           <i class="bi bi-list text-3xl"></i>
         </button>
         <div class="hidden lg:flex items-center space-x-6">
           <a href="/" class="hover:text-purple-300">Home</a>
-          <a href="/pages/shop.html" class="hover:text-purple-300">Shop</a>
+          <a href="/templates/shop.html" class="hover:text-purple-300">Shop</a>
           <a href="#about" class="hover:text-purple-300">About</a>
           <a href="#contact" class="hover:text-purple-300">Contact</a>
-          <a href="/pages/dashboard.html" class="hover:text-purple-300"
+          <a href="/templates/dashboard.html" class="hover:text-purple-300"
             >Dashboard</a
           >
-          <a href="/pages/profile.html" class="hover:text-purple-300"
+          <a href="/templates/profile.html" class="hover:text-purple-300"
             >Profile</a
           >
-          <a href="/pages/checkout.html" class="hover:text-purple-300"
+          <a href="{{ url_for('checkout') }}" class="hover:text-purple-300"
             >Cart (<span id="cartCount">0</span>)</a
           >
           <button onclick="logoutUser()" class="hover:text-purple-300">
@@ -129,14 +127,14 @@
       >
         <div class="flex flex-col px-4 py-6 space-y-4">
           <a href="/" class="hover:text-pink-900">Home</a>
-          <a href="/pages/shop.html" class="hover:text-pink-900">Shop</a>
+          <a href="/templates/shop.html" class="hover:text-pink-900">Shop</a>
           <a href="#about" class="hover:text-pink-900">About</a>
           <a href="#contact" class="hover:text-pink-900">Contact</a>
-          <a href="/pages/dashboard.html" class="hover:text-pink-900"
+          <a href="/templates/dashboard.html" class="hover:text-pink-900"
             >Dashboard</a
           >
-          <a href="/pages/profile.html" class="hover:text-pink-900">Profile</a>
-          <a href="/pages/checkout.html" class="hover:text-pink-900"
+          <a href="/templates/profile.html" class="hover:text-pink-900">Profile</a>
+          <a href="/templates/checkout.html" class="hover:text-pink-900"
             >Cart (<span id="cartCount">0</span>)</a
           >
           <button onclick="logoutUser()" class="text-left hover:text-pink-900">
@@ -156,7 +154,7 @@
           <div class="absolute w-60 h-60 bg-[#580F41] rounded-full"></div>
           <img
             id="productImage"
-            src="/image/product22-removebg-preview.png"
+            src="/static/image/product22-removebg-preview.png"
             alt="Product"
             class="relative w-72 z-10 transition-all duration-700 ease-in-out"
           />
@@ -176,7 +174,7 @@
             <button
               class="bg-[#580F41] text-white px-6 py-2 rounded shadow hover:bg-pink-900"
             >
-              <a href="/pages/shop.html"> Go to Shop </a>
+              <a href="{{ url_for('shop') }}"> Go to Shop </a>
             </button>
             <button class="text-[#580F41] underline">
               <a href="#howitworks">How it works</a>
@@ -433,62 +431,62 @@
         </div>
       </div>
     </section>
-    <!-- CARE -->
-    <section class="py-16 bg-[#C8A2C8] text-center">
-      <h2 class="text-3xl font-bold text-[#580F41] mb-12" data-aos="zoom-in">
-        JUST LIKE YOU WE CARE ABOUT
-      </h2>
+<!--    &lt;!&ndash; CARE &ndash;&gt;-->
+<!--    <section class="py-16 bg-[#C8A2C8] text-center">-->
+<!--      <h2 class="text-3xl font-bold text-[#580F41] mb-12" data-aos="zoom-in">-->
+<!--        JUST LIKE YOU WE CARE ABOUT-->
+<!--      </h2>-->
 
-      <div
-        class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-6xl mx-auto px-4"
-      >
-        <!-- Card 1 -->
-        <div
-          data-aos="fade-up"
-          data-aos-delay="200"
-          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
-        >
-          <i class="fas fa-paw text-[#580F41] text-4xl"></i>
-          <p class="font-semibold text-[#580F41] uppercase">
-            Cruelty Free Products
-          </p>
-        </div>
+<!--      <div-->
+<!--        class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-6xl mx-auto px-4"-->
+<!--      >-->
+<!--        &lt;!&ndash; Card 1 &ndash;&gt;-->
+<!--        <div-->
+<!--          data-aos="fade-up"-->
+<!--          data-aos-delay="200"-->
+<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
+<!--        >-->
+<!--          <i class="fas fa-paw text-[#580F41] text-4xl"></i>-->
+<!--          <p class="font-semibold text-[#580F41] uppercase">-->
+<!--            Cruelty Free Products-->
+<!--          </p>-->
+<!--        </div>-->
 
-        <!-- Card 2 -->
-        <div
-          data-aos="fade-up"
-          data-aos-delay="200"
-          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
-        >
-          <i class="fas fa-flask text-[#580F41] text-4xl"></i>
-          <p class="font-semibold text-[#580F41] uppercase">
-            No Harsh Chemicals
-          </p>
-        </div>
+<!--        &lt;!&ndash; Card 2 &ndash;&gt;-->
+<!--        <div-->
+<!--          data-aos="fade-up"-->
+<!--          data-aos-delay="200"-->
+<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
+<!--        >-->
+<!--          <i class="fas fa-flask text-[#580F41] text-4xl"></i>-->
+<!--          <p class="font-semibold text-[#580F41] uppercase">-->
+<!--            No Harsh Chemicals-->
+<!--          </p>-->
+<!--        </div>-->
 
-        <!-- Card 3 -->
-        <div
-          data-aos="fade-up"
-          data-aos-delay="200"
-          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
-        >
-          <i class="fas fa-leaf text-[#580F41] text-4xl"></i>
-          <p class="font-semibold text-[#580F41] uppercase text-center">
-            Quality Natural Ingredients
-          </p>
-        </div>
+<!--        &lt;!&ndash; Card 3 &ndash;&gt;-->
+<!--        <div-->
+<!--          data-aos="fade-up"-->
+<!--          data-aos-delay="200"-->
+<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
+<!--        >-->
+<!--          <i class="fas fa-leaf text-[#580F41] text-4xl"></i>-->
+<!--          <p class="font-semibold text-[#580F41] uppercase text-center">-->
+<!--            Quality Natural Ingredients-->
+<!--          </p>-->
+<!--        </div>-->
 
-        <!-- Card 4 -->
-        <div
-          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <i class="fas fa-recycle text-[#580F41] text-4xl"></i>
-          <p class="font-semibold text-[#580F41] uppercase">Sustainability</p>
-        </div>
-      </div>
-    </section>
+<!--        &lt;!&ndash; Card 4 &ndash;&gt;-->
+<!--        <div-->
+<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
+<!--          data-aos="fade-up"-->
+<!--          data-aos-delay="200"-->
+<!--        >-->
+<!--          <i class="fas fa-recycle text-[#580F41] text-4xl"></i>-->
+<!--          <p class="font-semibold text-[#580F41] uppercase">Sustainability</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
 
     <!-- Contact Section -->
     <section id="contact" class="bg-[#580F41] py-10 text-[#C8A2C8] pt-24">
@@ -716,6 +714,6 @@
     <script>
       AOS.init();
     </script>
-    <script src="/js/script.js"></script>
+    <script src="../static/js/script.js"></script>
   </body>
 </html>

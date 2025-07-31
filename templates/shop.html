@@ -20,7 +20,7 @@
       crossorigin="anonymous"
     />
     <!-- Favicon -->
-    <link rel="icon" href="/image/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/static/image/favicon.ico" type="image/x-icon" />
   </head>
 
   <body class="bg-white text-gray-800">
@@ -30,7 +30,7 @@
         class="container mx-auto px-4 py-4 flex items-center justify-between"
       >
         <a href="/" class="flex items-center">
-          <img src="/image/purpleLogo.png" alt="TSM Logo" class="w-24 h-auto" />
+          <img src="/static/image/purpleLogo.png" alt="TSM Logo" class="w-24 h-auto" />
         </a>
         <button
           id="menuToggle"
@@ -40,21 +40,19 @@
           <i class="bi bi-list text-3xl"></i>
         </button>
         <div class="hidden lg:flex space-x-6 items-center">
-          <a href="/pages/index.html" class="hover:text-purple-300">Home</a>
-          <a href="/pages/shop.html" class="hover:text-purple-300">Shop</a>
+          <a href="{{ url_for('index') }}" class="hover:text-purple-300">Home</a>
+          <a href="{{ url_for('shop') }}" class="hover:text-purple-300">Shop</a>
           <a
-            href="/pages/auth.html"
+            href="{{ url_for('login') }}"
             id="loginLink"
             class="hover:text-purple-300"
-            >Login</a
-          >
+            >Login</a>
           <a
-            href="/pages/auth.html"
+            href="{{ url_for('register') }}"
             id="registerLink"
             class="hover:text-purple-300"
-            >Register</a
-          >
-          <a href="/pages/cart.html" class="hover:text-purple-300">
+            >Register</a>
+          <a href="{{ url_for('cart') }}" class="hover:text-purple-300">
             Cart (<span id="cartCount">0</span>)
           </a>
         </div>
@@ -64,11 +62,11 @@
         class="absolute top-full left-0 right-0 bg-[#C8A2C8] text-[#580F41] overflow-hidden max-h-0 transition-all duration-300 lg:hidden"
       >
         <div class="flex flex-col space-y-4 px-4 py-6">
-          <a href="/pages/index.html" class="hover:text-pink-900">Home</a>
-          <a href="/pages/shop.html" class="hover:text-pink-900">Shop</a>
-          <a href="/pages/auth.html" class="hover:text-pink-900">Login</a>
-          <a href="/pages/auth.html" class="hover:text-pink-900">Register</a>
-          <a href="/pages/cart.html" class="hover:text-pink-900">
+          <a href="{{ url_for('index') }}" class="hover:text-pink-900">Home</a>
+          <a href="{{ url_for('shop') }}" class="hover:text-pink-900">Shop</a>
+          <a href="{{ url_for('login') }}" class="hover:text-pink-900">Login</a>
+          <a href="{{ url_for('register') }}" class="hover:text-pink-900">Register</a>
+          <a href="{{ url_for('cart') }}" class="hover:text-pink-900">
             Cart (<span id="cartCount">0</span>)
           </a>
         </div>
@@ -353,7 +351,7 @@
       src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
       defer
     ></script>
-    <script src="/js/shop.js"></script>
-    <script src="/js/shop.js"></script>
+    <script src="../static/js/shop.js"></script>
+    <script src="../static/js/shop.js"></script>
   </body>
 </html>

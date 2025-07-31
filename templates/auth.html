@@ -20,7 +20,7 @@
       <div id="nav-right">
         <!-- Before login -->
         <a
-          href="/pages/auth.html"
+          href="{{ url_for('register') }}"
           id="auth-link"
           class="text-purple-600 font-semibold"
         >
@@ -29,12 +29,12 @@
         <!-- After login -->
         <div id="user-info" class="hidden flex items-center gap-4">
           <img
-            src="/image/profile.jpg"
+            src="static/image/profile.jpg"
             alt="Profile"
             class="w-8 h-8 rounded-full"
           />
           <span id="username">User</span>
-          <a href="/cart.html" class="relative">
+          <a href="{{ url_for('cart') }}" class="relative">
             <i class="fas fa-shopping-cart text-purple-700 text-xl"></i>
             <span
               id="cart-count"
@@ -507,7 +507,8 @@
 
       function logoutUser() {
         localStorage.removeItem("user");
-        window.location.href = "/pages/auth.html";
+        // window.location.href = "/pages/auth.html";
+        window.location.href = "{{ url_for('register') }}";
       }
 
       function showToast(message, color = "bg-green-600") {
@@ -532,7 +533,8 @@
 
           showToast("Login successful!");
           setTimeout(() => {
-            window.location.href = "/pages/index.html";
+            // window.location.href = "/pages/index.html";
+            window.location.href = "{{ url_for('index') }}";
           }, 1500);
         });
 
@@ -549,7 +551,8 @@
 
           showToast("Registration successful!");
           setTimeout(() => {
-            window.location.href = "/pages/index.html";
+            // window.location.href = "/pages/index.html";
+            window.location.href = "{{ url_for('index') }}";
           }, 1500);
         });
 
