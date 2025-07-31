@@ -7,11 +7,11 @@ from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from flask_login import login_required, login_user, current_user, LoginManager, logout_user, UserMixin
 from sqlalchemy import String, Integer, ForeignKey, Float, LargeBinary, select, DateTime
 from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 from io import BytesIO
 from paystack_api import PaystackAPI
-
+from forms import AddCollection
 
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ PAYSTACK_BASE_URL = "https://api.paystack.co"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
-# bootstrap = Bootstrap5(app)
+Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -165,13 +165,61 @@ def login():
 
     return render_template("login.html", current_user=current_user)
 
-@app.route("/checkout")
-def checkout():
-    return render_template("checkout.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
+
+#Add New Products to database
+@app.route("/add-collection", methods=["GET", "POST"])
+# @login_required
+def add_collection():
+    form = AddCollection()
+    if form.validate_on_submit():
+        file = request.files["image_file"]
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            try:
+                # Create new collection record
+                new_collection = StoreCollection(
+                    brand_name=request.form.get("brand_name"),
+                    description=request.form.get("description"),
+                    filename=filename,
+                    amount=float(request.form.get("amount")),
+                    data=file.read(),  # Store actual image data
+                    mimetype=file.mimetype
+                )
+
+                db.session.add(new_collection)
+                db.session.commit()
+
+                # flash("Collection added successfully!")
+                return redirect(url_for("shop"))
+
+            except ValueError:
+                flash("Invalid amount value")
+                return redirect(url_for("add_collection"))
+            except Exception as e:
+                flash(f"Error saving collection: {str(e)}")
+                return redirect(url_for("add_collection"))
+        else:
+            flash("Invalid file type. Please upload an image file.")
+            return redirect(url_for("add_collection"))
+
+    return render_template("add_collections.html", form=form)
+
 
 @app.route("/cart")
 def cart():
     return render_template("cart.html")
+
+
+@app.route("/checkout", methods=["GET", "POST"])
+def checkout():
+    return render_template("checkout.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
