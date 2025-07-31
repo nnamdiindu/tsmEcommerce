@@ -65,7 +65,7 @@
           <a href="#contact" class="hover:text-purple-300">Contact</a>
           <a href="{{ url_for('login') }}" class="hover:text-purple-300">Login</a>
           <a href="{{ url_for('register') }}" class="hover:text-purple-300">Register</a>
-          <a href="{{ url_for('checkout') }}" class="hover:text-purple-300"
+          <a href="{{ url_for('cart') }}" class="hover:text-purple-300"
             >Cart (<span id="cartCount">0</span>)</a>
         </div>
       </div>
@@ -81,7 +81,7 @@
           <a href="{{ url_for('login') }}" class="hover:text-pink-900">Login</a>
           <a href="{{ url_for('register') }}" class="hover:text-pink-900"
             >Register</a>
-          <a href="{{ url_for('checkout') }}" class="hover:text-pink-900"
+          <a href="{{ url_for('cart') }}" class="hover:text-pink-900"
             >Cart (<span id="cartCount">0</span>)</a
           >
         </div>
@@ -89,7 +89,7 @@
     </nav>
 
     <!-- ✅ AFTER LOGIN NAVBAR -->
-    <nav
+    <!-- <nav
       id="afterLogin"
       class="bg-[#580F41] text-[#C8A2C8] sticky top-0 z-50 shadow-md hidden"
     >
@@ -142,7 +142,7 @@
           </button>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Hero section -->
     <section class="bg-[#C8A2C8] py-32 px-8">
@@ -431,62 +431,6 @@
         </div>
       </div>
     </section>
-<!--    &lt;!&ndash; CARE &ndash;&gt;-->
-<!--    <section class="py-16 bg-[#C8A2C8] text-center">-->
-<!--      <h2 class="text-3xl font-bold text-[#580F41] mb-12" data-aos="zoom-in">-->
-<!--        JUST LIKE YOU WE CARE ABOUT-->
-<!--      </h2>-->
-
-<!--      <div-->
-<!--        class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-6xl mx-auto px-4"-->
-<!--      >-->
-<!--        &lt;!&ndash; Card 1 &ndash;&gt;-->
-<!--        <div-->
-<!--          data-aos="fade-up"-->
-<!--          data-aos-delay="200"-->
-<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
-<!--        >-->
-<!--          <i class="fas fa-paw text-[#580F41] text-4xl"></i>-->
-<!--          <p class="font-semibold text-[#580F41] uppercase">-->
-<!--            Cruelty Free Products-->
-<!--          </p>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Card 2 &ndash;&gt;-->
-<!--        <div-->
-<!--          data-aos="fade-up"-->
-<!--          data-aos-delay="200"-->
-<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
-<!--        >-->
-<!--          <i class="fas fa-flask text-[#580F41] text-4xl"></i>-->
-<!--          <p class="font-semibold text-[#580F41] uppercase">-->
-<!--            No Harsh Chemicals-->
-<!--          </p>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Card 3 &ndash;&gt;-->
-<!--        <div-->
-<!--          data-aos="fade-up"-->
-<!--          data-aos-delay="200"-->
-<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
-<!--        >-->
-<!--          <i class="fas fa-leaf text-[#580F41] text-4xl"></i>-->
-<!--          <p class="font-semibold text-[#580F41] uppercase text-center">-->
-<!--            Quality Natural Ingredients-->
-<!--          </p>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Card 4 &ndash;&gt;-->
-<!--        <div-->
-<!--          class="flex flex-col items-center space-y-4 transition-transform duration-300 hover:scale-105"-->
-<!--          data-aos="fade-up"-->
-<!--          data-aos-delay="200"-->
-<!--        >-->
-<!--          <i class="fas fa-recycle text-[#580F41] text-4xl"></i>-->
-<!--          <p class="font-semibold text-[#580F41] uppercase">Sustainability</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </section>-->
 
     <!-- Contact Section -->
     <section id="contact" class="bg-[#580F41] py-10 text-[#C8A2C8] pt-24">
